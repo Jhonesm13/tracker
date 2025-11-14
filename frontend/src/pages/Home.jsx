@@ -60,10 +60,14 @@ export default function Home() {
         <div style={styles.container}>
             <div style={styles.card}>
 
-                <span style={styles.iconeRastreio}>🔍</span>
+                <img
+                    src="/logo_colorido.png"
+                    alt="Rastreamento"
+                    style={styles.iconeRastreio}
+                />
                 <h1 style={styles.titulo}>Rastreie sua Entrega</h1>
                 <p style={styles.subtitulo}>
-                    Insira o seu CPF para visualizar todas as suas encomendas em andamento.
+                    Insira o seu CPF para visualizar todas as suas encomendas.
                 </p>
 
                 <input
@@ -123,9 +127,11 @@ const styles = {
         zIndex: 1,
     },
     iconeRastreio: {
-        fontSize: '3.5rem',
+        width: '100%',
+        height: '80px',
         marginBottom: '10px',
         display: 'block',
+        objectFit: 'contain'
     },
     titulo: {
         fontSize: '1.8rem',
@@ -156,7 +162,7 @@ const styles = {
         width: "100%",
         padding: "15px",
         borderRadius: "8px",
-        backgroundColor: "#2196F3",
+        backgroundColor: "#FF811B",
         color: "white",
         border: "none",
         cursor: "pointer",

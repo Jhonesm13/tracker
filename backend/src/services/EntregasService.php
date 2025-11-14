@@ -20,6 +20,9 @@ class EntregasService {
                 $entrega['remetente']    = json_decode($entrega['remetente'], true);
                 $entrega['destinatario'] = json_decode($entrega['destinatario'], true);
                 $entrega['rastreamento'] = json_decode($entrega['rastreamento'], true);
+                $entrega['transportadora'] = $entrega['transportadora_nome'] ?? null;
+                unset($entrega['transportadora_nome']);
+
                 return $entrega;
             }, $entregas);
 

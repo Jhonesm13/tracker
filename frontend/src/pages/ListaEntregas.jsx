@@ -8,7 +8,7 @@ export default function ListaEntregas() {
 
     entregas = entregas.map((e) => {
         const id = e.id || e._id;
-        const transportadora = e.id_transportadora || e._id_transportadora;
+        const transportadora = e.transportadora || e.transportadora_nome;
         const volumes = e.volumes || e._volumes;
 
         const remetente =
@@ -93,7 +93,7 @@ export default function ListaEntregas() {
                         { /* HEADER DO CARD - ID e Status */}
                         <div style={styles.cardHeader}>
                             <h3 style={styles.cardTitulo}>
-                                N. Rastreio: **{e.id}**
+                                N. Rastreio: {e.id}
                             </h3>
                             <span style={{
                                 ...styles.cardStatus,
@@ -126,9 +126,6 @@ export default function ListaEntregas() {
                                     </div>
                                 ))}
                             </div>
-                            <p style={styles.ultimoStatusTexto}>
-                                **Último Status:** *{ultimoStatus}*
-                            </p>
                         </div>
 
                         <hr style={styles.separadorCard} />

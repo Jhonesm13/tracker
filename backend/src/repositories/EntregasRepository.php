@@ -14,8 +14,16 @@ class EntregasRepository {
     public function buscarPorCpf(string $cpf): array {
         // Buscar entregas que o destinatario (json) tenha o CPF informado 
         $stmt = $this->pdo->prepare("
-            SELECT * FROM entregas 
-            WHERE JSON_EXTRACT(destinatario, '$._cpf') = :cpf
+            SELECT
+                e.id,
+                e.volumes, 
+                e.remetente, 
+                e.destinatario, 
+                e.rastreamento, 
+                t.fantasia AS transportadora_nome
+            FROM entregas e 
+            LEFT JOIN transportadoras t ON t.id = e.id_transportadora
+            WHERE JSON_EXTRACT(e.destinatario, '$._cpf') = :cpf
         ");
         $stmt->execute(['cpf' => $cpf]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
