@@ -28,12 +28,4 @@ class EntregasController {
         $response->getBody()->write(json_encode($dados));
         return $response->withHeader('Content-Type', 'application/json');
     }
-
-    // GET /entregas/{id}
-    public function buscarPorId(Request $request, Response $response, array $args): Response {
-        $id = $args['id'] ?? null;
-        $dados = $this->service->buscarPorId($id);
-        $response->getBody()->write(json_encode($dados));
-        return $response->withHeader('Content-Type', 'application/json');
-    }
 }

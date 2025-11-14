@@ -21,8 +21,7 @@ class EntregasRepository {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function salvarEntrega(array $entrega): void
-    {
+    public function salvarEntrega(array $entrega): void {
         $stmt = $this->pdo->prepare("
             INSERT INTO entregas (id, id_transportadora, volumes, remetente, destinatario, rastreamento)
             VALUES (:id, :id_transportadora, :volumes, :remetente, :destinatario, :rastreamento)

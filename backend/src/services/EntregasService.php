@@ -15,9 +15,17 @@ class EntregasService {
         $entregas = $this->repository->buscarPorCpf($cpf);
 
         if (!empty($entregas)) {
+            $entregas_decodificadas = array_map(function ($entrega) {
+                // Decodifica as strings JSON salvas no banco de dados para arrays PHP
+                $entrega['remetente']    = json_decode($entrega['remetente'], true);
+                $entrega['destinatario'] = json_decode($entrega['destinatario'], true);
+                $entrega['rastreamento'] = json_decode($entrega['rastreamento'], true);
+                return $entrega;
+            }, $entregas);
+
             return [
                 'cpf' => $cpf,
-                'entregas' => $entregas
+                'entregas' => $entregas_decodificadas
             ];
         }
 
@@ -29,7 +37,9 @@ class EntregasService {
             throw new \Exception('Falha ao acessar a API externa.');
         }
 
-        $dados = json_decode($response, true);
+        $response_utf8 = mb_convert_encoding($response, 'UTF-8', 'UTF-8');
+        $dados = json_decode($response_utf8, true);
+
 
         if (!isset($dados['data']) || !is_array($dados['data'])) {
             throw new \Exception('Formato inesperado de resposta da API.');
@@ -52,5 +62,4 @@ class EntregasService {
             'entregas' => array_values($filtradas)
         ];
     }
-
 }
