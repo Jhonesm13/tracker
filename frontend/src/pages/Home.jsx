@@ -61,7 +61,7 @@ export default function Home() {
             <div style={styles.card}>
 
                 <img
-                    src="/logo_colorido.png"
+                    src="/logo_correios.jpg"
                     alt="Rastreamento"
                     style={styles.iconeRastreio}
                 />
@@ -128,7 +128,7 @@ const styles = {
     },
     iconeRastreio: {
         width: '100%',
-        height: '80px',
+        height: '200px',
         marginBottom: '10px',
         display: 'block',
         objectFit: 'contain'

@@ -17,11 +17,25 @@ class EntregasController {
         $params = $request->getQueryParams();
         $cpf = $params['cpf'] ?? null;
 
+        // Validação de CPF
         if (!$cpf) {
             $payload = ['error' => true, 'message' => 'O CPF é obrigatório'];
             $response->getBody()->write(json_encode($payload));
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
+
+        // Limpar o CPF
+        $cpfLimpo = preg_replace('/\D/', '', $cpf);
+        $length = strlen($cpfLimpo);
+
+        // Checa se o tamanho é válido para ou CNPJ
+        if ($length !== 11 && $length !== 14) {
+            $payload = ['error' => true, 'message' => 'O CPF/CNPJ deve conter 11 ou 14 digitos.'];
+            $response->getBody()->write(json_encode($payload));
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        }
+        
+        $cpf = $cpfLimpo;
 
         $dados = $this->service->buscarEntregasPorCpf($cpf);
 

@@ -53,7 +53,16 @@ export default function ListaEntregas() {
                         : "STATUS NÃO DISPONÍVEL";
 
                 const etapas = ["ENTREGA CRIADA", "EM TRÂNSITO", "SAIU PARA ENTREGA", "ENTREGA REALIZADA"];
-                const etapaAtual = etapas.indexOf(ultimoStatus);
+                const statusMap = {
+                    "ENTREGA CRIADA": 0,
+                    "EM TRÂNSITO": 1,
+                    "CHEGOU À FILIAL DA CIDADE": 2,
+                    "CHEGOU À CIDADE DE DESTINO": 2,
+                    "SAIU PARA ENTREGA": 2,
+                    "ENTREGA REALIZADA": 3,
+                };
+
+                const etapaAtual = statusMap[ultimoStatus] ?? -1;
                 const isFinalizado = ultimoStatus === "ENTREGA REALIZADA";
 
                 const enderecoCompleto =

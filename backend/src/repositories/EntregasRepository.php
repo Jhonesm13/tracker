@@ -29,6 +29,7 @@ class EntregasRepository {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Insere a entrega no banco
     public function salvarEntrega(array $entrega): void {
         $stmt = $this->pdo->prepare("
             INSERT INTO entregas (id, id_transportadora, volumes, remetente, destinatario, rastreamento)
@@ -42,6 +43,23 @@ class EntregasRepository {
             'remetente' => json_encode($entrega['_remetente']),
             'destinatario' => json_encode($entrega['_destinatario']),
             'rastreamento' => json_encode($entrega['_rastreamento'])
+        ]);
+    }
+
+    // Insere a transportadora no banco
+    public function salvarTransportadora(array $transportadora): void {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO transportadoras (id, cnpj, fantasia)
+            VALUES (:id, :cnpj, :fantasia)
+            ON DUPLICATE KEY UPDATE
+                cnpj = VALUES(cnpj),
+                fantasia = VALUES(fantasia)
+        ");
+
+        $stmt->execute([
+            'id'       => $transportadora['id'],
+            'fantasia' => $transportadora['fantasia'],
+            'cnpj'     => $transportadora['cnpj']
         ]);
     }
 }
